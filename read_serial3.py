@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 sensor="Acc"
 path ="readings.csv"
-ser = serial.Serial('/dev/ttyUSB4', 230400)
+ser = serial.Serial('/dev/ttyUSB0', 230400)
 a=0
 b=3000
 readings_array=np.array([])

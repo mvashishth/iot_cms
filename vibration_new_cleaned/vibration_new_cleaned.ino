@@ -1,11 +1,17 @@
 #include <Wire.h>
 #include <MPU6050.h>
+#include "I2Cdev.h"
+
 
 MPU6050 mpu;
 
 
 void setup() 
+
+
 {
+  Wire.begin();
+  TWBR=24;
   Serial.begin(230400);
 
   //Serial.println("Initialize MPU6050");

@@ -61,7 +61,7 @@ overflow: hidden;
 
 
 
-<div class="whole z1">
+<div id="X-encapse" class="whole z1" style="display:block">
 <div id='X-Axis' style="opacity:1">
 <div class="pad"> 
 <div class="container">
@@ -142,7 +142,7 @@ X-Axis    </div>
  <!-- Y-Axis -->
 
 
-<div class="whole z1">
+<div id="Y-encapse" class="whole z1" style="display:none">
 <div id="Y-Axis" style="opacity:0">
 <div class="pad"> 
 <div class="container">
@@ -221,7 +221,7 @@ Y-Axis
 
 
 <!-- Z-Axis -->
-<div class="whole z1">
+<div id="Z-encapse" class="whole z1" style="display:none">
 
  <div id="Z-Axis" style="opacity:0">
 <div class="pad"> 
@@ -348,6 +348,11 @@ function ()
                 chartZC.data.labels=JSONObject1.y_axis;
                 chartZC.data.datasets[0].data=[];
                 chartZC.data.datasets[0].data=JSONObject1.z_read;
+
+
+                chartXC.options.scales.xAxes[0].ticks.fontSize = 10;
+                chartXC.options.scales.xAxes[0].ticks.maxTicksLimit=30;
+
       
       // re-render the chart
                 chartXC.update();
@@ -369,11 +374,14 @@ var chartXC= new Chart(document.getElementById("line-chart-XC"), {
         data: [],
         borderColor: "#3e95cd",
         lineTension: 0,
-        fill: false
+        fill: false,
+        
       }
     ]
   },
   options: {
+
+
     title: {
           
       display: true,
@@ -527,7 +535,12 @@ var chartZI=new Chart(document.getElementById("line-chart-ZI"), {
 function myFunction() {
   document.getElementById("X-Axis").style.opacity = "1"; 
   document.getElementById("Y-Axis").style.opacity = "0"; 
-  document.getElementById("Z-Axis").style.opacity = "0"; 
+  document.getElementById("Z-Axis").style.opacity = "0";
+
+   document.getElementById("X-encapse").style.display = "block";
+   document.getElementById("Y-encapse").style.display = "none";  
+	document.getElementById("Z-encapse").style.display = "none";  
+  
 }
   
 function myFunction1() {
@@ -535,11 +548,19 @@ document.getElementById("X-Axis").style.opacity = "0";
 document.getElementById("Y-Axis").style.opacity = "1"; 
 document.getElementById("Z-Axis").style.opacity = "0"; 
 
+   document.getElementById("X-encapse").style.display = "none";
+   document.getElementById("Y-encapse").style.display = "block";  
+	document.getElementById("Z-encapse").style.display = "none";  
+
    }
 function myFunction2() {
   document.getElementById("X-Axis").style.opacity = "0"; 
   document.getElementById("Y-Axis").style.opacity = "0"; 
   document.getElementById("Z-Axis").style.opacity = "1"; 
+
+     document.getElementById("X-encapse").style.display = "none";
+   document.getElementById("Y-encapse").style.display = "none";  
+	document.getElementById("Z-encapse").style.display = "block";  
 
  
   }
