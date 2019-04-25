@@ -14,12 +14,12 @@ URL = "https://iotcms.herokuapp.com/get_data"
 
 sensor="Acc"
 path ="readings.csv"
-ser = serial.Serial('/dev/ttyUSB6', 230400)
+ser = serial.Serial('/dev/ttyUSB5', 57600)
 
 i=0
-while i<5:
+while i<20:
 	a=0
-	b=300
+	b=3000
 	readings_array=np.array([])
 	dt_started = datetime.datetime.utcnow()
 	while a<b:
@@ -29,12 +29,18 @@ while i<5:
 			line=line.decode()
 			print(line)
 			readings_array=np.append(readings_array, line)
-			print("Appended")
+			print(a)
 			a=a+1
 		except:
 			pass
 
+	dt_ended = datetime.datetime.utcnow()
+
+	total_time=str((dt_ended - dt_started).total_seconds())
+	print((dt_ended - dt_started).total_seconds())
+
 	df=pd.DataFrame(data=readings_array)
+	df=df.drop(df.index[0])
 	df['X'], df['Y'],df['Z'], df['I'] = zip(*df[0].map(lambda x: x.split(' ')))
 
 	df['X'] = df['X'].astype(float).fillna(0.0)
@@ -47,7 +53,7 @@ while i<5:
 	df['Z'] = df['Z'].tolist()
 	df['I'] = df['I'].tolist()
 
-	y_axis=np.arange(300)
+	y_axis=np.arange(3000)
 	y_axis=y_axis.tolist()
 
 	x_max=np.max(df['X'])
@@ -73,10 +79,15 @@ while i<5:
 
 	PARAMS = {'x_max':x_max,'y_max':y_max,'z_max':z_max,'x_rms':x_rms,
 	'y_rms':y_rms,'z_rms':z_rms,'x_read':x_read,'y_read':y_read,'z_read':z_read,'y_axis':y_axis} 
+	
+
+
 	r = requests.post(url = URL, json = PARAMS) 
 	print("done")
 
 	i=i+1
+
+
 
 	time.sleep(5)
 

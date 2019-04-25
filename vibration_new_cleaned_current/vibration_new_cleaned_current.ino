@@ -11,17 +11,17 @@ int RawValue= 0;
 int ACSoffset = 2500; 
 double Voltage = 0;
 double Amps = 0;
-
+ 
 void setup() 
 {
 
  Wire.begin();
   TWBR=24;
-  Serial.begin(230400);
+  Serial.begin(57600);
 
   //Serial.println("Initialize MPU6050");
 
-  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_4G))
+  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G))
   {
     Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
     delay(500);
