@@ -14,12 +14,13 @@ URL = "https://iotcms.herokuapp.com/get_data"
 
 sensor="Acc"
 path ="readings.csv"
-ser = serial.Serial('/dev/ttyUSB5', 57600)
+ser = serial.Serial('/dev/ttyUSB1', 57600)
+print("Initializing")
 
 i=0
 while i<20:
 	a=0
-	b=3000
+	b=300
 	readings_array=np.array([])
 	dt_started = datetime.datetime.utcnow()
 	while a<b:
@@ -53,12 +54,12 @@ while i<20:
 	df['Z'] = df['Z'].tolist()
 	df['I'] = df['I'].tolist()
 
-	y_axis=np.arange(3000)
+	y_axis=np.arange(300)
 	y_axis=y_axis.tolist()
 
-	x_max=np.max(df['X'])
-	y_max=np.max(df['Y'])
-	z_max=np.max(df['Z'])
+	x_max=abs(np.max(df['X']))
+	y_max=abs(np.max(df['Y']))
+	z_max=abs(np.max(df['Z']))
 
 	x_rms= np.sqrt(np.mean(df['X']**2))
 	y_rms=np.sqrt(np.mean(df['Y']**2))
@@ -73,12 +74,21 @@ while i<20:
 	y_rms=float("{0:.2f}".format(y_rms.tolist()))
 	z_rms=float("{0:.2f}".format(z_rms.tolist()))
 
+	std_x= np.std(df['X'])
+	std_y= np.std(df['Y'])
+	std_z= np.std(df['Z'])
+
+	std_x= float("{0:.2f}".format(std_x.tolist()))
+	std_y= float("{0:.2f}".format(std_y.tolist()))
+	std_z= float("{0:.2f}".format(std_z.tolist()))
+
 	x_read=abs(fft(df['X'])).tolist()
 	y_read=abs(fft(df['Y'])).tolist()
 	z_read=abs(fft(df['Z'])).tolist()
 
 	PARAMS = {'x_max':x_max,'y_max':y_max,'z_max':z_max,'x_rms':x_rms,
-	'y_rms':y_rms,'z_rms':z_rms,'x_read':x_read,'y_read':y_read,'z_read':z_read,'y_axis':y_axis} 
+	'y_rms':y_rms,'z_rms':z_rms,'x_read':x_read,'y_read':y_read,'z_read':z_read,'y_axis':y_axis,
+	'std_x':std_x,'std_y':std_y, 'std_z':std_z} 
 	
 
 
