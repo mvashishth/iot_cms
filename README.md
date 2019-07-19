@@ -14,7 +14,7 @@ Vibration data is read from Arduino Serial using Python serial library and then 
 
 NPM packages used can be found in package.json in "iotcms_deploy" directory
 
-The website is being hosted on Heroku. Click [here](iotcms.herokuapp.com)
+The website is being hosted on Heroku. Click <a href="iotcms.herokuapp.com">here/a>
 
 For converting raw valuesfrom MPU6050 to acceleration values you can use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) Arduino library. I am using a differenet one which I was unable to find at this moment.
 
